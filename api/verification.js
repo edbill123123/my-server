@@ -77,7 +77,8 @@ const sendEmailCode = (req, res) => {
 //驗證信箱驗證碼
 const verifyEmailCode = (req, res) => {
   const { email, code } = req.body;
-
+  console.log("code "+ code);
+  console.log(emailVerificationData[email]);
   try {
     // 驗證資料是否存在且符合
     if (emailVerificationData[email] && emailVerificationData[email] === code) {
