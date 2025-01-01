@@ -1,7 +1,6 @@
 const { OAuth2Client } = require("google-auth-library");
 const twilio = require('twilio');
 const nodemailer = require('nodemailer');
-require('dotenv').config();
 
 const phoneClient = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 const emailVerificationData = {};
@@ -22,13 +21,11 @@ const sendPhoneCode = async (req, res) => {
   }
 
   try {
-    console.log(config.TWILIO_ACCOUNT_SID);
     await phoneClient.verify.v2
       .services(process.env.TWILIO_VERIFY_SERVICE_SID)
       .verifications.create({ to: phoneNumber, channel: 'sms' });
     res.status(200).json({ message: `Verification code sent to ${phoneNumber}` });
   } catch (error) {
-    console.log(config.TWILIO_ACCOUNT_SID);
     res.status(500).json({ error: error.message });
   }
 };
