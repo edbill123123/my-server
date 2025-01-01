@@ -15,13 +15,14 @@ const transporter = nodemailer.createTransport({
 
 //發送手機驗證碼
 const sendPhoneCode = async (req, res) => {
+
   const { phoneNumber } = req.body;
   if (!phoneNumber) {
     return res.status(400).json({ error: 'Phone number is required' });
   }
 
   try {
-    console.log(phoneNumber);
+    console.log(config.TWILIO_ACCOUNT_SID);
     await phoneClient.verify.v2
       .services(process.env.TWILIO_VERIFY_SERVICE_SID)
       .verifications.create({ to: phoneNumber, channel: 'sms' });
@@ -78,7 +79,6 @@ const sendEmailCode = (req, res) => {
 //驗證信箱驗證碼
 const verifyEmailCode = (req, res) => {
   const { email, code } = req.body;
-  console.log(email,code);
   if (emailVerificationData[email] && emailVerificationData[email] == code) {
     delete emailVerificationData[email]; // Clear code after successful verification
     return res.send({ success: true });
@@ -104,7 +104,6 @@ const verifyGoogleLogin = async (req, res) => {
     });
 
     const payload = ticket.getPayload();  // 取得解碼後的 payload
-    console.log("User authenticated:", payload);
 
     // 返回用戶資料
     res.json({ user: payload });
