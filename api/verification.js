@@ -84,8 +84,10 @@ const verifyEmailCode = (req, res) => {
     if (emailVerificationData[email] && emailVerificationData[email] === code) {
       // 驗證成功：刪除驗證碼並回傳成功訊息
       delete emailVerificationData[email];
+      console.log("yes")
       return res.status(200).json({ success: true });
     } else {
+      console.log("no")
       // 驗證失敗：回傳錯誤訊息
       return res.status(400).json({ success: false, error: 'Invalid verification code or email' });
     }
