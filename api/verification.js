@@ -77,13 +77,15 @@ const sendEmailCode = (req, res) => {
 //驗證信箱驗證碼
 const verifyEmailCode = (req, res) => {
   const { email, code } = req.body;
-  if (emailVerificationData[email] && emailVerificationData[email] == code) {
-    delete emailVerificationData[email]; // Clear code after successful verification
-    console.log("success");
-    return res.status(200).json({ success: true });
+  try {
+    if (emailVerificationData[email] && emailVerificationData[email] == code) {
+      delete emailVerificationData[email]; // Clear code after successful verification
+      return res.status(200).json({ success: true });
+    }
   }
-  console.log("false");
-  res.status(500).json({ error: error.message });
+  catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 }
 
 //google登入驗證
