@@ -57,7 +57,7 @@ const sendEmailCode = (req, res) => {
   const { email } = req.body;
   const verificationCode = Math.floor(100000 + Math.random() * 900000);
   emailVerificationData[email] = verificationCode;
-
+  console.log(verificationCode);
   transporter.sendMail(
     {
       from: "edbill123123@gmail.com",
