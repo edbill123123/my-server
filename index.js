@@ -6,7 +6,7 @@ const { sendPhoneCode, verifyPhoneCode, sendEmailCode, verifyEmailCode, verifyGo
 
 // 創建 express 應用
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 app.get('/', (_req, res) => {
   res.send('Hello, Express!');
 });
@@ -33,7 +33,3 @@ app.post("/email/verifyCode", verifyEmailCode);
 app.post("/auth/google", verifyGoogleLogin);
 app.post("/auth/facebook", verifyFacebookLogin);
 
-// 啟動伺服器
-app.listen(port, () => {
-  console.log(`Server running at https://localhost:${port}`);
-});
