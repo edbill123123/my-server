@@ -83,7 +83,7 @@ const verifyEmailCode = (req, res) => {
     return res.status(200).send({ success: true });
   }
   console.log("false");
-  res.status(400).send({ success: false });
+  res.status(500).send({ error: error.message });
 }
 
 //google登入驗證
