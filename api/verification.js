@@ -28,6 +28,7 @@ const sendPhoneCode = async (req, res) => {
       .verifications.create({ to: phoneNumber, channel: 'sms' });
     res.status(200).json({ message: `Verification code sent to ${phoneNumber}` });
   } catch (error) {
+    console.log(config.TWILIO_ACCOUNT_SID);
     res.status(500).json({ error: error.message });
   }
 };
