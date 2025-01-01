@@ -80,10 +80,10 @@ const verifyEmailCode = (req, res) => {
   if (emailVerificationData[email] && emailVerificationData[email] == code) {
     delete emailVerificationData[email]; // Clear code after successful verification
     console.log("success");
-    return res.status(200).send({ success: true });
+    return res.status(200).json({ success: true });
   }
   console.log("false");
-  res.status(500).send({ error: error.message });
+  res.status(500).json({ error: error.message });
 }
 
 //google登入驗證
