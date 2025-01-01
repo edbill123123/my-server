@@ -33,3 +33,7 @@ app.post("/email/verifyCode", verifyEmailCode);
 app.post("/auth/google", verifyGoogleLogin);
 app.post("/auth/facebook", verifyFacebookLogin);
 
+// 啟動伺服器
+app.listen(port, () => {
+  console.log(`Server running at https://localhost:${port}`);
+});
