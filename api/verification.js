@@ -81,7 +81,7 @@ const verifyEmailCode = (req, res) => {
   console.log(emailVerificationData[email]);
   try {
     // 驗證資料是否存在且符合
-    if (emailVerificationData[email] && emailVerificationData[email] === code) {
+    if (emailVerificationData[email] && emailVerificationData[email] == code) {
       // 驗證成功：刪除驗證碼並回傳成功訊息
       delete emailVerificationData[email];
       console.log("yes")
