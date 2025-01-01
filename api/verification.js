@@ -77,16 +77,23 @@ const sendEmailCode = (req, res) => {
 //驗證信箱驗證碼
 const verifyEmailCode = (req, res) => {
   const { email, code } = req.body;
+
   try {
-    if (emailVerificationData[email] && emailVerificationData[email] == code) {
-      delete emailVerificationData[email]; // Clear code after successful verification
+    // 驗證資料是否存在且符合
+    if (emailVerificationData[email] && emailVerificationData[email] === code) {
+      // 驗證成功：刪除驗證碼並回傳成功訊息
+      delete emailVerificationData[email];
       return res.status(200).json({ success: true });
+    } else {
+      // 驗證失敗：回傳錯誤訊息
+      return res.status(400).json({ success: false, error: 'Invalid verification code or email' });
     }
+  } catch (error) {
+    // 錯誤處理：伺服器內部錯誤
+    res.status(500).json({ success: false, error: error.message });
   }
-  catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-}
+};
+
 
 //google登入驗證
 const verifyGoogleLogin = async (req, res) => {
